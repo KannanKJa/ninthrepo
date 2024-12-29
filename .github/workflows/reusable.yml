@@ -1,8 +1,23 @@
-name: Reusable Code
-on: workflow_call
+name: Reusable Demo
+on:
+    workflow_call:
+        inputs:
+            artifact-name:
+                description: 'The name of the Reusable files'
+                required: false
+                default: dist
+                type: string
 jobs:
     deploy:
         runs-on: ubuntu-latest
         steps:
+            - name: Get code
+              uses: actions/download-artifact@v3
+              with: 
+                name: ${{ inputs.artifact-name }}
+            - name: list the outputs
+              run: ls
             - name: Output Information
-              run: echo "Uploading & Deploying ..."
+              run: echo "Deploying & Uploading ..."
+
+
